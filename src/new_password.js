@@ -6,6 +6,7 @@ import { useState } from "react";
 const Popup = () => {
   const [site, setSite] = useState("");
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <ReactPopup
       trigger={<button>add new password</button>}
@@ -26,6 +27,14 @@ const Popup = () => {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+          />
+        </label>
+        <label>
+          Password
+          <input
+            type="text"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </label>
       </form>
