@@ -1,6 +1,6 @@
 import React from "react";
 import { useTable } from "react-table";
-import Popup from "../new_password";
+import Modal from "../new_password";
 
 function Passwords() {
   const data = React.useMemo(
@@ -47,7 +47,7 @@ function Passwords() {
 
   return (
     <div>
-      <Popup />
+      <Modal />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
