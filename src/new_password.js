@@ -1,11 +1,30 @@
 import React from "react";
 import ReactModal from "react-modal";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup
+  .object({
+    site: yup.string().required(),
+    username: yup.string().required(),
+    password: yup.string().required(),
+  })
+  .required();
 
 const Modal = () => {
-  const [site, setSite] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const onSubmit = (data) => {
+    setIsOpen(false);
+    console.log(data.site, data.username, data.password)
+  };
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -19,32 +38,30 @@ const Modal = () => {
   return (
     <div>
       <button onClick={openModal}>add new password</button>
-      <ReactModal isOpen={modalIsOpen} onRequestClose={closeModal}>
-        <form>
+      <ReactModal isOpen={modalIsOpen} onRequestClose={closeModal} ariaHideApp={false}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <label>
             Site
             <input
               type="text"
-              value={site}
-              onChange={(e) => setSite(e.target.value)}
+              {...register("site")}
             />
           </label>
           <label>
             Username
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              {...register("username")}
             />
           </label>
           <label>
             Password
             <input
               type="text"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password")}
             />
           </label>
+          <input type="submit" />
         </form>
         <button onClick={closeModal}>cancel</button>
       </ReactModal>
