@@ -1,4 +1,3 @@
-import React from "react";
 import ReactModal from "react-modal";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -13,12 +12,8 @@ const schema = yup
   })
   .required();
 
-const Modal = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+function Modal() {
+  const { register, handleSubmit } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
@@ -45,15 +40,17 @@ const Modal = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>
-            Site
+            site
             <input type="text" {...register("site")} />
           </label>
+          <br />
           <label>
-            Username
+            username
             <input type="text" {...register("username")} />
           </label>
+          <br />
           <label>
-            Password
+            password
             <input type="text" {...register("password")} />
           </label>
           <input type="submit" />
@@ -62,6 +59,6 @@ const Modal = () => {
       </ReactModal>
     </div>
   );
-};
+}
 
 export default Modal;
