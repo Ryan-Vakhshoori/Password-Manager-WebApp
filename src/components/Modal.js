@@ -23,7 +23,7 @@ const Modal = () => {
   });
   const onSubmit = (data) => {
     setIsOpen(false);
-    console.log(data.site, data.username, data.password)
+    console.log(data.site, data.username, data.password);
   };
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -38,28 +38,23 @@ const Modal = () => {
   return (
     <div>
       <button onClick={openModal}>add new password</button>
-      <ReactModal isOpen={modalIsOpen} onRequestClose={closeModal} ariaHideApp={false}>
+      <ReactModal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        ariaHideApp={false}
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>
             Site
-            <input
-              type="text"
-              {...register("site")}
-            />
+            <input type="text" {...register("site")} />
           </label>
           <label>
             Username
-            <input
-              type="text"
-              {...register("username")}
-            />
+            <input type="text" {...register("username")} />
           </label>
           <label>
             Password
-            <input
-              type="text"
-              {...register("password")}
-            />
+            <input type="text" {...register("password")} />
           </label>
           <input type="submit" />
         </form>
