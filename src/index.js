@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
-import Passwords from "./routes/passwords";
+import Passwords from "./pages/passwords";
 
 ReactDOM.render(
   <BrowserRouter>
