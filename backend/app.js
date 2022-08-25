@@ -3,9 +3,15 @@ import express from "express";
 import { collection, addDoc } from "firebase/firestore";
 import cors from "cors";
 import dotenv from "dotenv";
+import usersRouter from "./routes/users.js";
+import bodyParser from "body-parser";
 dotenv.config();
 
 const app = express();
+app.use(bodyParser.json({ limit: "200mb" }));
+app.use(bodyParser.urlencoded({ limit: "200mb", extended: true }));
+
+app.use(bodyParser.raw());
 const PORT = process.env.EXPRESS_APP_PORT;
 
 app.use(
@@ -15,18 +21,8 @@ app.use(
   })
 );
 
+app.use("/users", usersRouter);
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
-
-// app.get("/", async (req, res) => {
-//   try {
-//     const docRef = await addDoc(collection(db, "users"), {
-//       first: "Ada",
-//       last: "Lovelace",
-//       born: 1815,
-//     });
-//   } catch (e) {
-//     console.error("Error adding document: ", e);
-//   }
-// });
