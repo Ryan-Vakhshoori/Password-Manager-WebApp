@@ -44,7 +44,7 @@ usersRouter.get("/login", async (req, res) => {
       res.status(200).send(doc.id);
     });
   } else {
-    res.status(500).send({ message: "credentials invalid" });
+    res.status(500).send({ message: "invalid credentials" });
   }
 });
 

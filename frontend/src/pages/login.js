@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const schema = yup
@@ -11,6 +12,8 @@ const schema = yup
   .required();
 
 function Login() {
+  let navigate = useNavigate();
+
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(schema),
   });
@@ -24,10 +27,10 @@ function Login() {
         },
       })
       .then(function (response) {
-        console.log(response);
+        navigate("/passwords");
       })
       .catch(function (error) {
-        console.log(error);
+        alert(error.response.data.message);
       });
   }
 
