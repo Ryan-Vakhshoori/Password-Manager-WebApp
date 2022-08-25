@@ -5,8 +5,6 @@ function App() {
     <nav>
       <Link to="/new-user"> create new user</Link>
       <br />
-      <Link to="/passwords"> view passwords</Link>
-      <br />
       <Link to="/login"> login </Link>
     </nav>
   );
