@@ -4,6 +4,7 @@ import App from "./App.js";
 import Passwords from "./pages/passwords.js";
 import { createRoot } from "react-dom/client";
 import NewUser from "./pages/new-user.js";
+import Login from "./pages/login.js";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -14,6 +15,7 @@ root.render(
       <Route path="/" element={<App />} />
       <Route path="new-user" element={<NewUser />} />
       <Route path="passwords" element={<Passwords />} />
+      <Route path="login" element={<Login />} />
     </Routes>
   </BrowserRouter>
 );
