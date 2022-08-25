@@ -5,7 +5,6 @@ import {
   query,
   where,
   getDocs,
-  getDoc,
 } from "firebase/firestore";
 import db from "../firestore.js";
 
@@ -19,14 +18,14 @@ usersRouter.post("/new-user", async (req, res) => {
   const querySnapshot = await getDocs(userQuery);
   if (querySnapshot.size == 0) {
     try {
-      await addDoc(collection(db, "users"), {
+      const docRef = await addDoc(collection(db, "users"), {
         username: req.body.username,
         password: req.body.password,
       });
+      res.status(200).send(docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-    res.status(200).send({ message: "success" });
   } else {
     res.status(500).send({ message: "username already exists" });
   }

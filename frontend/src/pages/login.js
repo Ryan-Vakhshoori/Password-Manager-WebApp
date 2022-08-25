@@ -27,7 +27,7 @@ function Login() {
         },
       })
       .then(function (response) {
-        navigate("/passwords");
+        navigate(`/passwords/${response.data}`);
       })
       .catch(function (error) {
         alert(error.response.data.message);

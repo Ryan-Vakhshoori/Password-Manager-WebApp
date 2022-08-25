@@ -4,6 +4,7 @@ import { collection, addDoc } from "firebase/firestore";
 import cors from "cors";
 import dotenv from "dotenv";
 import usersRouter from "./routes/users.js";
+import passwordsRouter from "./routes/passwords.js";
 import bodyParser from "body-parser";
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(
 );
 
 app.use("/users", usersRouter);
+app.use("/passwords", passwordsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

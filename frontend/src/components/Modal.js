@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
 
 const schema = yup
   .object({
@@ -12,13 +13,24 @@ const schema = yup
   })
   .required();
 
-function Modal() {
+function Modal(props) {
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    setIsOpen(false);
-    console.log(data.site, data.username, data.password);
+    axios
+      .post("http://localhost:3001/passwords/new-password", {
+        docID: props.docID,
+        site: data.site,
+        username: data.username,
+        password: data.password,
+      })
+      .then(function (response) {
+        setIsOpen(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   const [modalIsOpen, setIsOpen] = useState(false);
 

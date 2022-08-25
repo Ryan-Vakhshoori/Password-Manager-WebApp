@@ -14,7 +14,7 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="new-user" element={<NewUser />} />
-      <Route path="passwords" element={<Passwords />} />
+      <Route path="passwords/:docID" element={<Passwords />} />
       <Route path="login" element={<Login />} />
     </Routes>
   </BrowserRouter>

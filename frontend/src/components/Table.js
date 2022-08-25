@@ -1,7 +1,7 @@
 import React from "react";
 import { useTable } from "react-table";
 
-const Table = () => {
+function Table() {
   const data = React.useMemo(
     () => [
       {
