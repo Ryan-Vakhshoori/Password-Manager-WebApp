@@ -1,23 +1,36 @@
+import axios from "axios";
 import React from "react";
 import { useTable } from "react-table";
 
-function Table() {
+function Table(props) {
+  axios.get("http://localhost:3001/passwords/get-passwords", {
+    params: {
+      docID: props.docID,
+    },
+  })
+  .then(function (response) {
+
+  })
+  .catch(function (error) {
+
+  });
+
   const data = React.useMemo(
     () => [
       {
-        col1: "9anime.id",
-        col2: "rmstan",
-        col3: "net",
+        site: "9anime.id",
+        username: "rmstan",
+        password: "net",
       },
       {
-        col1: "amazon.com",
-        col2: "4087099422",
-        col3: "fpl",
+        site: "amazon.com",
+        username: "4087099422",
+        password: "fpl",
       },
       {
-        col1: "facebook.com",
-        col2: "4087099422",
-        col3: "hy2",
+        site: "facebook.com",
+        username: "4087099422",
+        password: "hy2",
       },
     ],
     []
@@ -27,15 +40,15 @@ function Table() {
     () => [
       {
         Header: "Site",
-        accessor: "col1",
+        accessor: "site",
       },
       {
         Header: "Username",
-        accessor: "col2",
+        accessor: "username",
       },
       {
         Header: "Password",
-        accessor: "col3",
+        accessor: "password",
       },
     ],
     []
@@ -70,6 +83,6 @@ function Table() {
       </tbody>
     </table>
   );
-};
+}
 
 export default Table;

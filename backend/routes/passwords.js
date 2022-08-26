@@ -1,5 +1,5 @@
 import express from "express";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import db from "../firestore.js";
 
 const passwordsRouter = express();
@@ -11,7 +11,6 @@ passwordsRouter.post("/new-password", async (req, res) => {
       docRef,
       {
         [req.body.site]: {
-          site: req.body.site,
           username: req.body.username,
           password: req.body.password,
         },
@@ -23,5 +22,20 @@ passwordsRouter.post("/new-password", async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+passwordsRouter.get("/get-passwords", async (req, res) => {
+  try {
+    const docRef = doc(db, "users", req.query.docID);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+    } else {
+      console.log("No such document!");
+    }
+    res.status(200).send(docSnap.data());
+  } catch (error) {
+    res.status(500).send(error);
+  }
+})
 
 export default passwordsRouter;
