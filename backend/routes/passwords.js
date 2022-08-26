@@ -11,6 +11,7 @@ passwordsRouter.post("/new-password", async (req, res) => {
       docRef,
       {
         [req.body.site]: {
+          site: req.body.site,
           username: req.body.username,
           password: req.body.password,
         },
@@ -28,11 +29,13 @@ passwordsRouter.get("/get-passwords", async (req, res) => {
     const docRef = doc(db, "users", req.query.docID);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-    } else {
-      console.log("No such document!");
+      const data = docSnap.data();
+      const arr = [];
+      for (const property in data) {
+        arr.push(data[property]);
+      }
+      res.status(200).send(arr);
     }
-    res.status(200).send(docSnap.data());
   } catch (error) {
     res.status(500).send(error);
   }
