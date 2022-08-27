@@ -1,5 +1,5 @@
 import express from "express";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { deleteField, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import db from "../firestore.js";
 
 const passwordsRouter = express();
@@ -36,6 +36,18 @@ passwordsRouter.get("/get-passwords", async (req, res) => {
       }
       res.status(200).send(arr);
     }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+})
+
+passwordsRouter.delete("/delete-password", async (req, res) => {
+  try {
+    const docRef = doc(db, "users", req.body.docID);
+    await updateDoc(docRef, {
+      [req.body.site]: deleteField()
+    });
+    res.status(200).send({ message: "password successfully deleted" })
   } catch (error) {
     res.status(500).send(error);
   }

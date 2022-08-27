@@ -8,6 +8,8 @@ function Passwords() {
   return (
     <div>
       <Link to="new-password">add new password</Link>
+      <br />
+      <Link to="delete-password">delete password</Link>
       <Data docID={docID}/>
     </div>
   );
