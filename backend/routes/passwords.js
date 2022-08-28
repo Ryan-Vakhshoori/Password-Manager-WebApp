@@ -1,5 +1,12 @@
+import e from "express";
 import express from "express";
-import { deleteField, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  deleteField,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import db from "../firestore.js";
 
 const passwordsRouter = express();
@@ -39,18 +46,46 @@ passwordsRouter.get("/get-passwords", async (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
-})
+});
 
 passwordsRouter.delete("/delete-password", async (req, res) => {
   try {
     const docRef = doc(db, "users", req.body.docID);
     await updateDoc(docRef, {
-      [req.body.site]: deleteField()
+      [req.body.site]: deleteField(),
     });
-    res.status(200).send({ message: "password successfully deleted" })
+    res.status(200).send({ message: "password successfully deleted" });
   } catch (error) {
     res.status(500).send(error);
   }
-})
+});
+
+passwordsRouter.put("/edit-password", async (req, res) => {
+  try {
+    const docRef = doc(db, "users", req.body.docID);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data()
+    let found = false;
+    for (const property in data) {
+      if (property === req.body.site) {
+        found = true;
+        await updateDoc(docRef, {
+          [req.body.site]: {
+            site: req.body.site,
+            username: req.body.username,
+            password: req.body.password,
+          },
+        });
+      }
+    }
+    if (found) {
+      res.status(200).send({ message: "success" });
+    } else {
+      res.status(201).send({ message: "site not found" });
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 export default passwordsRouter;

@@ -10,6 +10,7 @@ function Passwords() {
       <Link to="new-password">add new password</Link>
       <br />
       <Link to="delete-password">delete password</Link>
+      <br />
       <Link to="edit-password">edit password</Link>
       <Data docID={docID}/>
     </div>
