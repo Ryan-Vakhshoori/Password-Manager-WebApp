@@ -12,6 +12,8 @@ function Passwords() {
       <Link to="delete-password">delete password</Link>
       <br />
       <Link to="edit-password">edit password</Link>
+      <br />
+      <Link to="/">logout</Link>
       <Data docID={docID}/>
     </div>
   );
