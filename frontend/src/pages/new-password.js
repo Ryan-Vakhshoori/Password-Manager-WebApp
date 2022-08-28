@@ -19,6 +19,7 @@ function NewPassword() {
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(schema),
   });
+
   const onSubmit = (data) => {
     axios
       .post("http://localhost:3001/passwords/new-password", {

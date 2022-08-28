@@ -19,17 +19,23 @@ function DeletePassword() {
   });
 
   const onSubmit = (data) => {
-    axios.delete("http://localhost:3001/passwords/delete-password", {
-      data: {
-        docID: docID,
-        site: data.site,
-      },
-    })
-    .then(function (response) {
-      navigate(-1);
-    }).catch(function (error) {
-      console.log(error);
-    })
+    if (data.site === "password-manager") {
+      alert("cannot delete password-manager");
+    } else {
+      axios
+        .delete("http://localhost:3001/passwords/delete-password", {
+          data: {
+            docID: docID,
+            site: data.site,
+          },
+        })
+        .then(function (response) {
+          navigate(-1);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
 
   return (

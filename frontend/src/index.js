@@ -7,6 +7,7 @@ import NewUser from "./pages/new-user.js";
 import Login from "./pages/login.js";
 import NewPassword from "./pages/new-password.js";
 import DeletePassword from "./pages/delete-password.js";
+import EditPassword from "./pages/edit-password.js";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -20,6 +21,7 @@ root.render(
       <Route path="passwords/:docID" element={<Passwords />} />
       <Route path="passwords/:docID/new-password" element={<NewPassword />} />
       <Route path="passwords/:docID/delete-password" element={<DeletePassword />} />
+      <Route path="passwords/:docID/edit-password" element={<EditPassword />} />
     </Routes>
   </BrowserRouter>
 );
