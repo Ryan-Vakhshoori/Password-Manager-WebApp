@@ -51,10 +51,22 @@ passwordsRouter.get("/get-passwords", async (req, res) => {
 passwordsRouter.delete("/delete-password", async (req, res) => {
   try {
     const docRef = doc(db, "users", req.body.docID);
-    await updateDoc(docRef, {
-      [req.body.site]: deleteField(),
-    });
-    res.status(200).send({ message: "password successfully deleted" });
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data()
+    let found = false;
+    for (const property in data) {
+      if (property === req.body.site) {
+        found = true;
+        await updateDoc(docRef, {
+          [req.body.site]: deleteField(),
+        });
+      }
+    }
+    if (found) {
+      res.status(200).send({ message: "success" });
+    } else {
+      res.status(201).send({ message: "site not found" });
+    }
   } catch (error) {
     res.status(500).send(error);
   }

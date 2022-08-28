@@ -21,22 +21,23 @@ function EditPassword() {
   });
 
   const onSubmit = (data) => {
-    axios.put("http://localhost:3001/passwords/edit-password", {
-      docID: docID,
-      site: data.site,
-      username: data.username,
-      password: data.password,
-    })
-    .then(function (response) {
-      if (response.status === 201) {
-        alert(response.data.message);
-      } else {
-        navigate(-1);
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
+    axios
+      .put("http://localhost:3001/passwords/edit-password", {
+        docID: docID,
+        site: data.site,
+        username: data.username,
+        password: data.password,
+      })
+      .then(function (response) {
+        if (response.status === 201) {
+          alert(response.data.message);
+        } else {
+          navigate(-1);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (

@@ -30,7 +30,11 @@ function DeletePassword() {
           },
         })
         .then(function (response) {
-          navigate(-1);
+          if (response.status === 201) {
+            alert(response.data.message);
+          } else {
+            navigate(-1);
+          }
         })
         .catch(function (error) {
           console.log(error);
