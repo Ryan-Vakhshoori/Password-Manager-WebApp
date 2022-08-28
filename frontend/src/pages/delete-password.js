@@ -19,8 +19,8 @@ function DeletePassword() {
   });
 
   const onSubmit = (data) => {
-    if (data.site === "password-manager") {
-      alert("cannot delete password-manager");
+    if (data.site === "password_manager") {
+      alert("cannot delete password_manager");
     } else {
       axios
         .delete("http://localhost:3001/passwords/delete-password", {

@@ -1,5 +1,14 @@
 import express from "express";
-import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import db from "../firestore.js";
 
 const usersRouter = express();
@@ -14,7 +23,7 @@ usersRouter.post("/new-user", async (req, res) => {
     try {
       const docRef = await addDoc(collection(db, "users"), {
         password_manager: {
-          site: "password-manager",
+          site: "password_manager",
           username: req.body.username,
           password: req.body.password,
         },
@@ -41,6 +50,41 @@ usersRouter.get("/login", async (req, res) => {
     });
   } else {
     res.status(500).send({ message: "invalid credentials" });
+  }
+});
+
+usersRouter.get("/forgot-password", async (req, res) => {
+  try {
+    const userQuery = query(
+      collection(db, "users"),
+      where("password_manager.username", "==", req.query.username)
+    );
+    const querySnapshot = await getDocs(userQuery);
+    if (querySnapshot.size == 1) {
+      querySnapshot.forEach((doc) => {
+        res.status(200).send(doc.id);
+      });
+    } else {
+      res.status(201).send({ message: "username does not exist" });
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+usersRouter.put("/reset-password", async (req, res) => {
+  try {
+    const docRef = doc(db, "users", req.body.docID);
+    await updateDoc(docRef, {
+      "password_manager": {
+        "site": "password_manager",
+        "username": req.body.username,
+        "password": req.body.password,
+      },
+    });
+    res.status(200).send({ message: "success" });
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 
